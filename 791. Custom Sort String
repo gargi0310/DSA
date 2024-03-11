@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        unordered_map<char, int> mpp;
+        string ans;
+
+        for(auto c: s){
+            mpp[c]++;
+        }
+
+        for(auto ch: order){
+            if(mpp.find(ch) != mpp.end()){
+                ans.append(mpp[ch], ch);
+                mpp.erase(ch);
+            }
+        }
+
+        for(auto it: mpp){
+            ans.append(it.second, it.first);
+        }
+
+        return ans;
+    }
+};
