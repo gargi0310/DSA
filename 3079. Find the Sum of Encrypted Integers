@@ -1,0 +1,35 @@
+#include<algorithm>
+
+class Solution {
+public:
+    
+    int largestDigit(int num){
+        int maxDigit = 0;
+        while(num>0){
+            maxDigit = max(maxDigit, num % 10);
+            num /= 10;
+        }
+        
+        return maxDigit;
+    }
+    
+    int encrypt(int num){
+        int largest = largestDigit(num);
+        int encrypted = 0;
+        int multiplier = 1;
+        while (num > 0) {
+            encrypted += largest * multiplier;
+            multiplier *= 10;
+            num /= 10;
+        }
+    return encrypted;
+    }
+    
+    int sumOfEncryptedInt(vector<int>& nums) {
+        int total = 0;
+        for(auto num: nums){
+            total+=encrypt(num);
+        }
+        return total;
+    }
+};
