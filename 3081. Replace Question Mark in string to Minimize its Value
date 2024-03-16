@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string minimizeStringValue(string s) {
+        vector<int> cnt(26);
+        string ans="";
+        
+        for(int i=0; i<s.size(); i++){
+            if(s[i] != '?'){
+                cnt[s[i] - 'a']++;
+            }
+        }
+        
+        for(int i=0; i<s.size(); i++){
+            if(s[i] == '?'){
+                char ch = 'a';
+                for(char j='b'; j<='z'; j++){
+                    if(cnt[ch - 'a'] > cnt[j - 'a']){
+                        ch = j;
+                    }
+                }
+                
+                ans += ch;
+                cnt[ch - 'a']++;
+            }
+        }
+        
+        sort(ans.rbegin(), ans.rend());
+        
+        for(int i=0; i<s.size(); i++){
+            if(s[i] == '?'){
+                s[i] = ans.back();
+                ans.pop_back();
+            }
+        }
+        
+        return s;
+    }
+};
