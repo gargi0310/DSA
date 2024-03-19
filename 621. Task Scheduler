@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int leastInterval(vector<char>& tasks, int n) {
+        //Step 1: store the cnt of the jobs in a map
+        vector<int> mpp(26, 0);
+        for(char &ch: tasks){
+            mpp[ch - 'A']++;
+        }
+
+        //declare a int least_interval var and a priority queue
+        int interval = 0;
+        priority_queue<int> pq;
+
+        for(int i=0; i<26; i++){
+            if(mpp[i] > 0){
+                pq.push(mpp[i]);
+            }
+        }
+
+        while(!pq.empty()){
+            vector<int> temp;
+            for(int i=1; i<=n+1; i++){
+                if(!pq.empty()){
+                    int freq = pq.top();
+                    pq.pop();
+                    freq--;
+                    temp.push_back(freq);
+                }
+            }
+
+            for(auto &f: temp){
+                if(f>0){
+                    pq.push(f);
+                }
+            }
+
+            if(pq.empty()){
+                interval += temp.size();
+            }
+            else{
+                interval += n+1;
+            }
+        }
+
+        return interval;
+    }
+};
