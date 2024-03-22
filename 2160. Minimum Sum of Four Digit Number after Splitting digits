@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minimumSum(int num) {
+        vector<int> v;
+
+        while(num>0){
+            int digit = num % 10;
+            v.push_back(digit);
+            num = num / 10;
+        }
+
+        sort(v.begin(), v.end());
+
+        string str1 = to_string(v[0]);
+        str1+= to_string(v[3]);
+        
+        string str2 = to_string(v[1]);
+        str2+= to_string(v[2]);
+
+        int num1 = stoi(str1);
+        int num2 = stoi(str2);
+
+        return num1 + num2;
+
+    }
+};
